@@ -17,4 +17,5 @@ where medium != 'organic'
 order by visitor_id, visit_date desc)
 
 select * from tab
+where created_at > visit_date or created_at is null
 order by amount desc nulls last
