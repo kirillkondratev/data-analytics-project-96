@@ -12,7 +12,7 @@ with tab as (
         status_id
     from sessions
     left join leads
-        on sessions.visitor_id = leads.visitor_id
+        using (visitor_id)
 where medium != 'organic'
 order by visitor_id asc, visit_date desc
 )
@@ -36,3 +36,6 @@ order by
     utm_source asc,
     utm_medium asc,
     utm_campaign asc
+
+
+
