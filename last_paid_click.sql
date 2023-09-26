@@ -2,9 +2,9 @@ with tab as (
     select distinct on (visitor_id)
         visitor_id,
         visit_date,
-        source,
-        medium,
-        campaign,
+        source as utm_source,
+        medium as utm_medium,
+        campaign as utm_campaign,
         lead_id,
         created_at,
         amount,
@@ -17,8 +17,22 @@ where medium != 'organic'
 order by visitor_id asc, visit_date desc
 )
 
-select * from tab
-where created_at > visit_date or created_at is null
+select
+    visitor_id,
+    visit_date,
+    utm_source,
+    utm_medium,
+    utm_campaign,
+    lead_id,
+    created_at,
+    amount,
+    closing_reason,
+    status_id
+from tab
+where created_at >= visit_date or created_at is null
 order by
-amount desc nulls last, visit_date asc, source asc, medium asc, campaign asc;
-
+    amount desc nulls last,
+    visit_date asc,
+    utm_source asc,
+    utm_medium asc,
+    utm_campaign asc
